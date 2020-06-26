@@ -1,0 +1,15 @@
+.test {
+  color: #11ab98;
+}
+
+main {
+  background-color: #FFFFFF;
+}
+main div {
+  color: #000;
+}
+main div:hover {
+  color: #010101;
+}
+
+/*# sourceMappingURL=styles.css.map */
