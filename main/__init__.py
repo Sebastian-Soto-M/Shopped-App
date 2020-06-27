@@ -35,7 +35,7 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.rounte('/')
+@app.route('/')
 def hello():
     return "hola jime"
 
