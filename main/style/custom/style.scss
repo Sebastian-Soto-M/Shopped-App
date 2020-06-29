@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('roboto_slab.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: 'Quiska';
+    src: url('quiska_personal_use_only.ttf') format('truetype')
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.bg-food {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-image: url("bgimg.jpg");
+    height: 100%;
+    .row {
+        height: 100%;
+    }
+}
+h1.display-1 {
+    font-family: 'Quiska';
+}
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Roboto Slab';
+}
+
+.form-control {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
