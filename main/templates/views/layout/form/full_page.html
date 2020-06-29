@@ -1,0 +1,18 @@
+{% extends 'views/layout/default/all.html' %}
+
+{% set bg =  url_for('.static', filename='img/'~img)  %}
+
+{% block content %}
+    <div class="container-fluid m-0 pl-0 h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-sm d-none d-md-block bg-food"
+                 style="background-image:url('{{ bg }}')">
+            </div>
+            <div class="col-xsm-12 col-md-5 col-lg-5">
+                <div class="container">
+                    {% block form %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link rel="stylesheet" href="{{url_for('.static', filename='css/style.css')}}">
+        {% block styles %}{% endblock %}
+    </head>
+
+    <body>
+        <header>
+            {% include 'views/layout/default/nav.html' %}
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            {% include 'views/layout/default/footer.html' %}
+        </footer>
+        <script src="{{ url_for('.static', filename='js/bootstrap.min.js')}}"></script>
+    </body>
+
+</html>

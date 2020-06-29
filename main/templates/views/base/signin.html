@@ -1,11 +1,15 @@
-{% extends 'views/layout/body.html' %}
+{% extends 'views/layout/form/full_page.html' %}
 
-{% block styles %}
-
-{% endblock %}
-
-{% block content %}
-
-hillo
-
+{% block form %}
+    <div class="mb-5 text-center">
+        <h1 class="display-1 title mb-0">Shopped</h1>
+        <h3>Sign In</h3>
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Email">
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password">
+    </div>
+    <div class="mb-3"><button class="btn py-2 w-100 btn-success text-white">Sign In</button></div>
 {% endblock %}
