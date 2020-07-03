@@ -1,17 +1,17 @@
-{% extends 'views/layout/default/all.html' %}
+{% extends 'views/layout/default/basic.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('.static', filename='css/full_page_form.min.css') }}">
+{% endblock %}
 
 {% set bg =  url_for('.static', filename='img/'~img)  %}
 
 {% block content %}
-    <div class="container-fluid m-0 pl-0 h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-sm d-none d-md-block bg-food"
-                 style="background-image:url('{{ bg }}')">
-            </div>
-            <div class="col-xsm-12 col-md-5 col-lg-5">
-                <div class="container">
-                    {% block form %}{% endblock %}
-                </div>
+    <div class="container-fluid h-100">
+        <div class="row justify-content-center h-100">
+            <div class="col-sm d-none d-md-block bg-fp" style="background-image: url('{{bg}}')"></div>
+            <div class="col-sm-12 col-md-5 col-lg-5 align-self-center">
+                {% block form %}{% endblock %}
             </div>
         </div>
     </div>

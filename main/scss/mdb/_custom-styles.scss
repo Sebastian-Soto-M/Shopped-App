@@ -1,0 +1,43 @@
+// Your custom styles
+.fill {
+  flex-grow: 1;
+}
+.btn-rounded {
+  border-radius: 5rem;
+}
+
+.bg-fp {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto Slab";
+  &.title {
+    font-size: 4rem;
+    padding-top: 2rem;
+    @extend .amber-text;
+  }
+}
+
+.title {
+  font-family: "Quiska" !important;
+}
