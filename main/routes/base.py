@@ -32,3 +32,4 @@ def account():
 @r_base.route('/')
 def home():
     return render_template('views/base/index.html', title='Home')
+

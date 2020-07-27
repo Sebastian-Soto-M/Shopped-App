@@ -1,0 +1,86 @@
+{% extends 'views/layout/form/form_base.html' %}
+
+{% block form %}
+    <div class="px-lg-5 pt-0">
+        <!-- Form -->
+        <form class="text-center" action="" method="post" novalidate>
+             {{ form.hidden_tag() }}
+            <!-- Name -->
+            <div class="md-form">
+                {{ form.name.label(class='form-control-label') }}
+                {% if form.name.errors %}
+                    {{ form.name(
+                    class='is-invalid form-control',
+                    required=true
+                    ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.name.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.name(class='form-control',required=true)}}
+                {% endif %}
+            </div>
+             <!-- Description -->
+            <div class="md-form">
+                {{ form.description.label(class='form-control-label') }}
+                {% if form.description.errors %}
+                    {{ form.description(
+                    class='is-invalid form-control',
+                    required=true
+                    ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.description(class='form-control',required=true)}}
+                {% endif %}
+            </div>
+             <!-- Items -->
+            <div class="md-form">
+                {{ form.items.label(class='form-control-label') }}
+                {% if form.items.errors %}
+                    {{ form.items(
+                    class='is-invalid form-control',
+                    required=true
+                    ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.items.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.items(class='form-control',required=true)}}
+                {% endif %}
+                
+            </div>
+              <!-- Instructions -->
+            <div class="md-form">
+                {{ form.instructions.label(class='form-control-label') }}
+                {% if form.instructions.errors %}
+                    {{ form.instructions(
+                    class='is-invalid form-control',
+                    required=true
+                    ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.items.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.instructions(class='form-control',required=true)}}
+                {% endif %}
+                
+            </div>
+            
+            <!-- Save button -->
+            <button class="btn btn-outline-amber btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Save</button>
+
+
+        </form>
+        <!-- Form -->
+    </div>
+{% endblock %}
