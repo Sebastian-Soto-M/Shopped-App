@@ -4,7 +4,7 @@ from ..forms import RecipeForm
 r_recipe = Blueprint('r_recipe', __name__,
                    static_folder='static')
 
-@r_recipe.route('/recipe')
+@r_recipe.route('/recipe', methods=['GET', 'POST'])
 def recipe():
     form = RecipeForm()
     if form.validate_on_submit():

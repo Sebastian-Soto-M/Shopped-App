@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.fields import *
 from wtforms.validators import DataRequired, Email, Length, ValidationError
 
 
@@ -13,4 +13,6 @@ class LoginForm(FlaskForm):
 
 class RecipeForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
+    description = StringField('Decription', validators=[DataRequired()])
+    items = TextAreaField('Items', validators=[DataRequired()])
     submit = SubmitField('Save')

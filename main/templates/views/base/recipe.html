@@ -5,7 +5,7 @@
         <!-- Form -->
         <form class="text-center" action="" method="post" novalidate>
              {{ form.hidden_tag() }}
-            <!-- Email -->
+            <!-- Name -->
             <div class="md-form">
                 {{ form.name.label(class='form-control-label') }}
                 {% if form.name.errors %}
@@ -22,6 +22,41 @@
                     {{ form.name(class='form-control',required=true)}}
                 {% endif %}
             </div>
+             <!-- Description -->
+            <div class="md-form">
+                {{ form.description.label(class='form-control-label') }}
+                {% if form.description.errors %}
+                    {{ form.description(
+                    class='is-invalid form-control',
+                    required=true
+                    ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.description(class='form-control',required=true)}}
+                {% endif %}
+            </div>
+             <!-- Items -->
+            <div class="md-form">
+                {{ form.items.label(class='form-control-label') }}
+                {% if form.items.errors %}
+                    {{ form.items(
+                    class='is-invalid form-control',
+                    required=true
+                    ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.items.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.items(class='form-control',required=true)}}
+                {% endif %}
+            </div>
+            
             <!-- Save button -->
             <button class="btn btn-outline-amber btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Save</button>
 
