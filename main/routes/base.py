@@ -32,3 +32,8 @@ def account():
 @r_base.route('/')
 def home():
     return render_template('views/base/index.html', title='Home')
+
+
+@r_base.route('/recipe')
+def recipe():
+    return render_template('views/base/recipe.html', title='Recipes')

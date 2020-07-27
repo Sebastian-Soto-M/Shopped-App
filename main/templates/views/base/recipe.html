@@ -1,0 +1,37 @@
+{% extends 'views/layout/default/basic.html' %}
+
+{% block form %}
+    <div class="px-lg-5 pt-0">
+        <!-- Form -->
+        <form class="text-center" action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <!-- Name -->
+            <div class="md-form">
+                {{ form.name.label(class='form-control-label') }}
+                {% if form.name.errors %}
+                    {{ form.name(
+                    class='is-invalid form-control',
+                    required=true
+                    ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.name.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.name(class='form-control',required=true)}}
+                {% endif %}
+            </div>
+
+            
+
+           
+
+            <!-- Save button -->
+            <button class="btn btn-outline-amber btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Save</button>
+
+
+        </form>
+        <!-- Form -->
+    </div>
+{% endblock %}
