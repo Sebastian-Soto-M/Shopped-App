@@ -12,6 +12,5 @@ class LoginForm(FlaskForm):
 
 
 class RecipeForm(FlaskForm):
-    name = StringField('Name', validators=[ DataRequired()])
-   
+    name = StringField('Name', validators=[DataRequired()])
     submit = SubmitField('Save')

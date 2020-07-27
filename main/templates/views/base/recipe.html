@@ -1,11 +1,11 @@
-{% extends 'views/layout/default/basic.html' %}
+{% extends 'views/layout/form/form_base.html' %}
 
 {% block form %}
     <div class="px-lg-5 pt-0">
         <!-- Form -->
         <form class="text-center" action="" method="post" novalidate>
-            {{ form.hidden_tag() }}
-            <!-- Name -->
+             {{ form.hidden_tag() }}
+            <!-- Email -->
             <div class="md-form">
                 {{ form.name.label(class='form-control-label') }}
                 {% if form.name.errors %}
@@ -22,11 +22,6 @@
                     {{ form.name(class='form-control',required=true)}}
                 {% endif %}
             </div>
-
-            
-
-           
-
             <!-- Save button -->
             <button class="btn btn-outline-amber btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Save</button>
 
