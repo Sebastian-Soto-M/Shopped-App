@@ -55,6 +55,25 @@
                 {% else %}
                     {{ form.items(class='form-control',required=true)}}
                 {% endif %}
+                
+            </div>
+              <!-- Instructions -->
+            <div class="md-form">
+                {{ form.instructions.label(class='form-control-label') }}
+                {% if form.instructions.errors %}
+                    {{ form.instructions(
+                    class='is-invalid form-control',
+                    required=true
+                    ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.items.errors %}
+                            <span>{{error}}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.instructions(class='form-control',required=true)}}
+                {% endif %}
+                
             </div>
             
             <!-- Save button -->
