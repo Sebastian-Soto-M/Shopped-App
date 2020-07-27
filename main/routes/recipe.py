@@ -13,9 +13,22 @@ def recipe():
     response = requests.get('http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe')
     print (json.loads(response.text))
     if form.validate_on_submit():
-     
+        data = {
+            "status": "ACTIVE",
+            "author": "01236446",
+            "items":
+                {"chinken":"1",
+                "garlic":"2"},
+            "data":  
+                {f"name": form.name.data,
+                f"description": form.description.data,
+                "step1": "cook"}
+                
+        }
+        print(data)
+        r = requests.post('http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe', json=data)
        
-        print('saving recipe')
+        print(r.status_code)
         return redirect(url_for('.recipe'))
    
     return render_template('views/base/recipe.html', title='Recipes', form=form,img='recipe.jpg')
