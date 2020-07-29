@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, url_for, request
+from flask import Blueprint, redirect, render_template, request, url_for
 
 r_cart = Blueprint('r_cart', __name__, url_prefix='/cart',
                    static_folder='static')

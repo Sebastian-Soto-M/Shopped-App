@@ -1,13 +1,13 @@
 import json
-import utils
 
 import requests
 from flask import Blueprint, redirect, render_template, request, url_for
 
-from . import API_URL
-from ..models import User
+import utils
 
 from ..forms import LoginForm
+from ..models import User
+from . import API_URL
 
 r_base = Blueprint('r_base', __name__, static_folder='static')
 
