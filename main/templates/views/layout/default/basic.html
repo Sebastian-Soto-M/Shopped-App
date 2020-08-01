@@ -15,18 +15,6 @@
     <body>
         <header>
             {% include 'views/layout/default/nav.html' %}
-            {% with  messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category,message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show w-100" role="alert">
-                            <span>{{ message }}</span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
         </header>
         <main class="fill">
             {% block content %}

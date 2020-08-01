@@ -9,6 +9,11 @@ r_recipe = Blueprint('r_recipe', __name__,
                      static_folder='static')
 
 
+@r_recipe.route('/recipe/home')
+def home():
+    return redirect(url_for('base_r.home'))
+
+
 @r_recipe.route('/recipe', methods=['GET', 'POST'])
 def recipe():
     form = RecipeForm()

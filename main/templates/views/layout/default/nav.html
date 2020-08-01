@@ -7,24 +7,36 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home
+                <a class="nav-link" href="{{ url_for('r_base.home')}}">Home
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Recipes</a>
+                <a class="nav-link" href="{{ url_for('r_recipe.home')}}">Recipes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Bundles</a>
+                <a class="nav-link" href="{{ url_for('r_bundle.home')}}">Bundles</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Cart</a>
+                <a class="nav-link" href="{{ url_for('r_cart.home')}}">Cart</a>
             </li>
-            <li class="nav-item">
-                <a href="{{ url_for('r_base.register')}}" class="amber-text btn-block text-center nav-link">Sign Up</a>
-            </li>
+            {% if not current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{{ url_for('r_base.register')}}" class="amber-text btn-block text-center nav-link">Sign Up</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('r_base.account')}}">Account</a>
+                </li>
+            {% endif %}
         </ul>
-        <div action="" class="form-inline">
-            <a href="{{ url_for('r_base.login')}}" class="btn btn-amber btn-rounded btn-block waves-effect">Sign In</a>
-        </div>
+        {% if current_user.is_authenticated %}
+            <div action="" class="form-inline">
+                <a href="{{ url_for('r_base.logout')}}" class="btn btn-amber btn-rounded btn-block waves-effect">Log out</a>
+            </div>
+        {% else %}
+            <div action="" class="form-inline">
+                <a href="{{ url_for('r_base.login')}}" class="btn btn-amber btn-rounded btn-block waves-effect">Sign In</a>
+            </div>
+        {% endif %}
     </div>
 </nav>
