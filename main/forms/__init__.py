@@ -16,4 +16,13 @@ class RecipeForm(FlaskForm):
     description = StringField('Decription', validators=[DataRequired()])
     instructions = TextAreaField('Instructions', validators=[DataRequired()])
     items = TextAreaField('Items', validators=[DataRequired()])
+    flist = FieldList(TextField())
     submit = SubmitField('Save')
+
+class Sample(FlaskForm):
+    name = StringField()
+    description = StringField('Decription', validators=[DataRequired()])
+    instructions = TextAreaField('Instructions', validators=[DataRequired()])
+    items = TextAreaField('Items', validators=[DataRequired()])
+    ingredients = FieldList(TextField())
+    submit = SubmitField('Submit')
