@@ -75,7 +75,26 @@
                 {% endif %}
                 
             </div>
-            
+            <!-- Ingredients -->
+
+            <div class="md-form">
+                {% if form.ingredients.errors %}
+                {{ form.ingredients(
+                class='is-invalid form-control',
+                required=true
+                ) }}
+                <div class="invalid-feedback">
+                    {% for error in form.items.errors %}
+                    <span>{{error}}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.ingredients(class='form-control',required=true)}}
+                {% endif %}
+                <button class="btn btn-outline-amber btn-rounded btn-block my-3 waves-effect z-depth-0" type="button" id="addNewIngredientField">Add Ingredient</button>
+
+            </div>
+
             <!-- Save button -->
             <button class="btn btn-outline-amber btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Save</button>
 
