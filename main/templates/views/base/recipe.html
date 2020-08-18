@@ -78,9 +78,8 @@
             <!-- Ingredients -->
 
             <div class="md-form">
-                {{ form.flist.label(class='form-control-label') }}
-                {% if form.flist.errors %}
-                {{ form.flist(
+                {% if form.ingredients.errors %}
+                {{ form.ingredients(
                 class='is-invalid form-control',
                 required=true
                 ) }}
@@ -90,7 +89,7 @@
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.flist(class='form-control',required=true)}}
+                {{ form.ingredients(class='form-control',required=true)}}
                 {% endif %}
                 <button class="btn btn-outline-amber btn-rounded btn-block my-3 waves-effect z-depth-0" type="button" id="addNewIngredientField">Add Ingredient</button>
 

@@ -13,16 +13,9 @@ class LoginForm(FlaskForm):
 
 class RecipeForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
-    description = StringField('Decription', validators=[DataRequired()])
-    instructions = TextAreaField('Instructions', validators=[DataRequired()])
-    items = TextAreaField('Items', validators=[DataRequired()])
-    flist = FieldList(TextField())
-    submit = SubmitField('Save')
-
-class Sample(FlaskForm):
-    name = StringField()
-    description = StringField('Decription', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
     instructions = TextAreaField('Instructions', validators=[DataRequired()])
     items = TextAreaField('Items', validators=[DataRequired()])
     ingredients = FieldList(TextField())
-    submit = SubmitField('Submit')
+    submit = SubmitField('Save')
+

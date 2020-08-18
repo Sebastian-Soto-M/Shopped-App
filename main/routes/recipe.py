@@ -4,7 +4,6 @@ import requests
 from flask import Blueprint, redirect, render_template, request, url_for
 
 from ..forms import RecipeForm
-from ..forms import Sample
 
 
 r_recipe = Blueprint('r_recipe', __name__,
@@ -14,25 +13,24 @@ r_recipe = Blueprint('r_recipe', __name__,
 @r_recipe.route('/recipe', methods=['GET', 'POST'])
 def recipe():
     form = RecipeForm()
-    sample= Sample()
     response = requests.get(
         'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe')
     print(json.loads(response.text))
 
     if form.validate_on_submit():
         instructions = form.instructions.data.splitlines()
-        items = form.items.data.splitlines()
-        print(instructions)
+        items = []
+        import pdb; pdb.set_trace()
+        print (form.ingredients.data)
+        for input in form.ingredients.data:
+            items.add(input.data)
         print(items)
         instructions_json = dict(enumerate(instructions))
-
-        print(instructions_json)
+        items_json = dict(enumerate(items))
         data = {
             "status": "ACTIVE",
             "author": "01236446",
-            "items":
-                {"chinken": "1",
-                 "garlic": "2"},
+            f"items": items_json,
             "data":
                 {f"name": form.name.data,
                  f"description": form.description.data,
@@ -40,8 +38,8 @@ def recipe():
 
         }
         print(data)
-        r = requests.post(
-            'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe', json=data)
+        # r = requests.post(
+        #    'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe', json=data)
 
         # print(r.status_code)
         return redirect(url_for('.recipe'))
