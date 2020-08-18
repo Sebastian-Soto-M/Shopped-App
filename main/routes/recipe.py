@@ -19,18 +19,33 @@ def recipe():
 
     if form.validate_on_submit():
         instructions = form.instructions.data.splitlines()
-        items = []
-        import pdb; pdb.set_trace()
+        items = form.ingredients.data
+        #import pdb; pdb.set_trace()
         print (form.ingredients.data)
-        for input in form.ingredients.data:
-            items.add(input.data)
-        print(items)
+        item_count=1
+        items_list=[]
+        item_string=""
+        for item in items:
+            if item_count % 2 == 0 and item_count>0:
+                item_string=item_string+","+item
+                items_list.append(item_string)
+                item_string=""
+                print('quantity')
+            else:
+                item_string=item
+                print('item')
+            item_count=item_count+1
+        dict(item.split(",") for item in items_list)
+
+        res_dct = {items[i]: items[i + 1] for i in range(0, len(items), 2)}
+        print (res_dct)
+        print(items_list)
         instructions_json = dict(enumerate(instructions))
-        items_json = dict(enumerate(items))
+        items_json = dict(enumerate(items_list))
         data = {
             "status": "ACTIVE",
             "author": "01236446",
-            f"items": items_json,
+            f"items": res_dct,
             "data":
                 {f"name": form.name.data,
                  f"description": form.description.data,
@@ -38,10 +53,10 @@ def recipe():
 
         }
         print(data)
-        # r = requests.post(
-        #    'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe', json=data)
+        r = requests.post(
+            'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe', json=data)
 
-        # print(r.status_code)
+        print(r.status_code)
         return redirect(url_for('.recipe'))
 
     return render_template('views/base/recipe.html', title='Recipes', form=form, img='recipe.jpg')
