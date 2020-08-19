@@ -43,6 +43,23 @@ def recipe():
 def discover_recipes():
     response = requests.get(
             'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe')
+    recipes=response.json()
+    author_list=[]
+    for item in response.json():
+        author_id=item['author']
+        print(author_id)
+        author_response = requests.get(
+                    f'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/user/{author_id}')
+        #import pdb; pdb.set_trace()
+        author_list.append(author_response.json()['name'])
     data=json.loads(response.text)
+    counter=0
 
-    return render_template('views/base/discover_recipes.html', title='Recipes', data=data)
+    for author in author_list:
+        print(author)
+        recipes[counter]['author']=author
+        counter += 1
+
+    print(recipes)
+
+    return render_template('views/base/discover_recipes.html', title='Recipes', data=recipes, img='discover.jpeg')
