@@ -1,0 +1,13 @@
+{% extends 'views/layout/form/form_base.html' %}
+
+{% block form %}
+<div class="px-lg-5 pt-0">
+    <ul>
+        {% for item in data %}
+        <li>{{item.data.name}}</li>
+        <li>{{item.data.description}}</li>
+        <li>{{item.steps}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
