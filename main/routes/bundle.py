@@ -3,7 +3,6 @@ import json
 import requests
 from flask import Blueprint, redirect, render_template, request, url_for
 
-
 r_bundle = Blueprint('r_bundle', __name__,
                      static_folder='static')
 
