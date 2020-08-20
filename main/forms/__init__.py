@@ -1,5 +1,3 @@
-import pdb
-
 from flask_wtf import FlaskForm
 from wtforms.fields import (BooleanField, FieldList, PasswordField,
                             StringField, SubmitField, TextAreaField, TextField)
@@ -11,17 +9,28 @@ import utils
 from main import API_URL
 
 
+class RecoverForm(FlaskForm):
+    email = StringField('Email', validators=[Email(), DataRequired()])
+    submit = SubmitField('Send new password')
+
+    def validate_email(self, email):
+        user = utils.get_url(API_URL+'/user/gsi/'+email.data)
+        if user['id'] == None:
+            raise ValidationError(
+                'That email is invalid')
+
+
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[Email(), DataRequired()])
     password = PasswordField('Password', validators=[
-                             DataRequired(), Length(min=4, max=20)])
+        DataRequired(), Length(min=4, max=20)])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
 
 class RegisterForm(FlaskForm):
     id = StringField('Identification', validators=[
-                     DataRequired(), Length(3, 10)])
+        DataRequired(), Length(3, 10)])
     name = StringField('Full Name', validators=[DataRequired(), Length(2, 30)])
     email = StringField('Email', validators=[Email(), DataRequired()])
     password = PasswordField('Password', [
@@ -33,7 +42,6 @@ class RegisterForm(FlaskForm):
 
     def validate_email(self, email):
         user = utils.get_url(API_URL+'/user/gsi/'+email.data)
-        pdb.set_trace()
         if user['id']:
             raise ValidationError(
                 'That email is taken. Please choose a different one.')

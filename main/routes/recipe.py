@@ -55,7 +55,6 @@ def discover_recipes():
         print(author_id)
         author_response = requests.get(
                     f'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/user/{author_id}')
-        #import pdb; pdb.set_trace()
         author_list.append(author_response.json()['name'])
     data=json.loads(response.text)
     counter=0

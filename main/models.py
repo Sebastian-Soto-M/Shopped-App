@@ -33,6 +33,7 @@ class User(UserMixin, ResponseObject):
         return User(
             id=obj['id'],
             name=obj['name'],
+            email=obj['email'],
             password=obj['password'],
             status=obj['status'],
             shopping_lists=obj['shopping_lists'],

@@ -8,33 +8,57 @@ from flask_login import current_user, login_required, login_user, logout_user
 import utils
 from main import API_URL, bcrypt
 
-from ..forms import LoginForm, RegisterForm
+from ..forms import LoginForm, RegisterForm, RecoverForm
 from ..models import User
 
 r_base = Blueprint('r_base', __name__, static_folder='static')
 
 
+@r_base.route('/recover_password', methods=['GET', 'POST'])
+def recover_password():
+    form = RecoverForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            password, encrypted = utils.new_password()
+            usr_id = utils.get_url(API_URL+'/user/gsi/'+form.email.data)['id']
+            import pdb
+            pdb.set_trace()
+            user = User.to_object(utils.get_url(API_URL+'/user/' + usr_id))
+            user.password = encrypted
+            utils.put(API_URL+'/user/', user.to_json())
+            flash(
+                f'Password updated, check your email! ({password})', 'success')
+            return redirect(url_for('.login'))
+
+    return render_template('views/base/recover_password.html', title='Recover Password',
+                           form=form, img='mail.jpg')
+
+
 @r_base.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('.home'))
-
     form = LoginForm()
-
-    if form.validate_on_submit():
-        usr_id = utils.get_url(API_URL+'/user/gsi/'+form.email.data)
-        if usr_id != None:
-            user = User.to_object(utils.get_url(API_URL+'/user/' + usr_id))
-            if bcrypt.check_password_hash(user.password, form.password.data):
-                login_user(user, remember=form.remember.data)
-                next_page = request.args.get('next')
-                return redirect(next_page) if next_page else \
-                    redirect(url_for('.home'))
-        else:
-            flash(f'Login unsuccessful. Please check your email and password.',
-                  'danger')
-    return render_template('views/base/login.html', title='Log In', form=form,
-                           img='bgimg.jpg')
+    if request.method == 'GET' and current_user.is_authenticated:
+        return redirect(url_for('.home'))
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            usr_id = utils.get_url(API_URL+'/user/gsi/'+form.email.data)['id']
+            if usr_id == None:
+                flash(f'Login unsuccessful. Please check your email and\
+                      password.', 'danger')
+                return redirect(url_for('.login'))
+            else:
+                user = User.to_object(utils.get_url(API_URL+'/user/' + usr_id))
+                if bcrypt.check_password_hash(user.password,
+                                              form.password.data):
+                    login_user(user, remember=form.remember.data)
+                    next_page = request.args.get('next')
+                    return redirect(next_page) if next_page else redirect(url_for('.home'))
+                else:
+                    flash(f'Login unsuccessful. Please check your email and\
+                          password.', 'danger')
+                    return redirect(url_for('.login'))
+    return render_template('views/base/login.html', title='Log In',
+                           form=form, img='bgimg.jpg')
 
 
 @r_base.route('/register', methods=['GET', 'POST'])
