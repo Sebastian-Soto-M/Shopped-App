@@ -52,3 +52,8 @@ def account():
 def home():
     print(os.environ['TEAM'])
     return render_template('views/base/index.html', title='Home')
+
+
+@r_base.errorhandler(404)
+def page_not_found(e):
+    return render_template('views/index.html', title='Not Found'), 404
