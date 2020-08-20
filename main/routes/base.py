@@ -1,6 +1,5 @@
-import pdb
 import json
-from datetime import datetime
+import os
 
 import requests
 from flask import Blueprint, flash, redirect, render_template, request, url_for
@@ -17,7 +16,6 @@ r_base = Blueprint('r_base', __name__, static_folder='static')
 
 @r_base.route('/login', methods=['GET', 'POST'])
 def login():
-    import pdb
     if current_user.is_authenticated:
         return redirect(url_for('.home'))
 
