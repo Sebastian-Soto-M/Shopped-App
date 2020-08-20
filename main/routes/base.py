@@ -1,4 +1,5 @@
 import json
+import os
 
 import requests
 from flask import Blueprint, flash, redirect, render_template, request, url_for
@@ -49,4 +50,5 @@ def account():
 
 @ r_base.route('/')
 def home():
+    print(os.environ['TEAM'])
     return render_template('views/base/index.html', title='Home')
