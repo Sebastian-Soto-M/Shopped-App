@@ -5,7 +5,6 @@ from flask import Blueprint, redirect, render_template, request, url_for
 
 from ..forms import RecipeForm
 
-
 r_recipe = Blueprint('r_recipe', __name__,
                      static_folder='static')
 

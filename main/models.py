@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 
-import utils
 from flask_login import LoginManager, UserMixin
+
+import utils
 from main import API_URL, login_manager
 
 

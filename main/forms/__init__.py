@@ -1,7 +1,8 @@
 import pdb
+
 from flask_wtf import FlaskForm
-from wtforms.fields import (BooleanField, PasswordField, StringField,
-                            SubmitField, TextAreaField)
+from wtforms.fields import (BooleanField, FieldList, PasswordField,
+                            StringField, SubmitField, TextAreaField, TextField)
 from wtforms.fields.html5 import DateField
 from wtforms.validators import (DataRequired, Email, EqualTo, Length,
                                 ValidationError)
@@ -44,4 +45,3 @@ class RecipeForm(FlaskForm):
     instructions = TextAreaField('Instructions', validators=[DataRequired()])
     ingredients = FieldList(TextField())
     submit = SubmitField('Save')
-

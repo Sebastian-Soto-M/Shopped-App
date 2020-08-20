@@ -1,12 +1,12 @@
 import os
 
+import cloudinary
 import jinja2
 from flask import Flask
-
-import cloudinary
-import config
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+
+import config
 
 conf = config.DevelopmentConfig
 
