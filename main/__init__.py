@@ -12,7 +12,7 @@ conf = config.DevelopmentConfig
 
 app = Flask(__name__)
 
-API_URL = conf.API_URL
+API_URL = os.environ['API_URL']
 
 app.config.from_object(conf)
 
