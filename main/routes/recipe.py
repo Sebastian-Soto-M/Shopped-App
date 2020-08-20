@@ -2,6 +2,7 @@ import json
 
 import requests
 from flask import Blueprint, redirect, render_template, request, url_for
+from random import randrange
 
 from ..forms import RecipeForm
 
@@ -56,6 +57,8 @@ def discover_recipes():
     counter=0
 
     for author in author_list:
+        number=randrange(10)
+        recipes[counter]['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
         print(author)
         recipes[counter]['author']=author
         counter += 1
