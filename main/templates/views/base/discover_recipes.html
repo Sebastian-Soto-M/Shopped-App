@@ -1,13 +1,41 @@
-{% extends 'views/layout/form/form_base.html' %}
+{% extends 'views/layout/default/basic.html' %}
+{% block styles %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/recipe_list.css') }}">
+{% endblock %}
+{% block content %}
+<section class="details-card">
 
-{% block form %}
-<div class="px-lg-5 pt-0">
-    <ul>
+    <div class="container">
+        <div class="row">
+
         {% for item in data %}
-        <li>{{item.data.name}}</li>
-        <li>{{item.data.description}}</li>
-        <li>{{item.steps}}</li>
+        <div class="card" style="margin:15px">
+
+            <!-- Card content -->
+            <div class="px-3 ">
+                <div class="card-content">
+                    <div class="card-img">
+                        <img src="http://lorempixel.com/400/200/food/" alt="">
+                        <span><h4>{{item.data.name}}</h4></span>
+                    </div>
+                    <div class="card-desc">
+                        <h3>{{item.data.name}}</h3>
+                        <p>{{item.data.description}}</p>
+                        <p class="card-text">{{item.data.author}}</p>
+                        <a href="#" class="btn-card">Read</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Card -->
         {% endfor %}
-    </ul>
-</div>
+        </div>
+    </div>
+</section>
+
+
 {% endblock %}
