@@ -1,21 +1,43 @@
 import os
 
+import cloudinary
 import jinja2
 from flask import Flask
-from werkzeug.utils import import_string
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 import config
 
+conf = config.DevelopmentConfig
 
-def create_app(cfg: str):
-    app = Flask(__name__)
-    # app.config.from_pyfile(os.path.join('..', 'config.cfg'))
-    obj = import_string(cfg)
-    app.config.from_object(obj)
-    template_dir = os.path.join('.', 'templates')
-    loader = jinja2.FileSystemLoader(os.path.join('.', template_dir))
-    environment = jinja2.Environment(loader=loader)
-    if app.app_context():
-        from main.routes import register_blueprints
-        register_blueprints(app)
-        return app
+app = Flask(__name__)
+
+API_URL = os.environ['API_URL']
+
+app.config.from_object(conf)
+
+# Init bcrypt
+bcrypt = Bcrypt(app)
+
+# Init login_manager
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
+
+# Init Cloudinary
+CLOUDINARY_CLOUD_NAME = 'snsm-img'
+CLOUDINARY_API_KEY = '539871227625762'
+CLOUDINARY_API_SECRET = '1I3msDYBT5xsMZPbWAOFqkpdABI'
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET
+)
+
+template_dir = os.path.join('.', 'templates')
+loader = jinja2.FileSystemLoader(os.path.join('.', template_dir))
+environment = jinja2.Environment(loader=loader)
+
+if app.app_context():
+    import main.routes

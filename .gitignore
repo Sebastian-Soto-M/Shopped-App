@@ -1,5 +1,5 @@
 venv/
 .vim/
-.env/
+.env
 **/__pycache__/
 test.py

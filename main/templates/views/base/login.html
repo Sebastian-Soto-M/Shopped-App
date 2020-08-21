@@ -52,12 +52,12 @@
                 </div>
                 <div>
                     <!-- Forgot password -->
-                    <a href="{{ url_for('.home')}}">Forgot password?</a>
+                    <a href="{{ url_for('.recover_password')}}">Forgot password?</a>
                 </div>
             </div>
 
             <!-- Sign in button -->
-            <button class="btn btn-outline-amber btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+            {{ form.submit(class="btn btn-outline-amber btn-rounded btn-block my-4 waves-effect z-depth-0")}}
 
             <!-- Register -->
             <p>Not a member?

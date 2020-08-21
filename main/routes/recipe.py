@@ -6,9 +6,13 @@ from random import randrange
 
 from ..forms import RecipeForm
 
-
 r_recipe = Blueprint('r_recipe', __name__,
                      static_folder='static')
+
+
+@r_recipe.route('/recipe/home')
+def home():
+    return redirect(url_for('base_r.home'))
 
 
 @r_recipe.route('/recipe', methods=['GET', 'POST'])
@@ -76,4 +80,3 @@ def add_recipe():
     form= RecipeForm()
     print(request.args.get('id'))
     return render_template('views/base/recipe.html', title='Recipes', form=form, img='recipe.jpg')
-
