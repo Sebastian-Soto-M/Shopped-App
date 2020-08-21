@@ -69,3 +69,11 @@ def discover_recipes():
             recipe['author']=author_response.json()['name']
 
     return render_template('views/base/discover_recipes.html', title='Recipes', data=recipes, img='discover.jpeg', form=form)
+
+
+@ r_recipe.route('/add_recipe', methods=[ 'POST', 'GET'])
+def add_recipe():
+    form= RecipeForm()
+    print(request.args.get('id'))
+    return render_template('views/base/recipe.html', title='Recipes', form=form, img='recipe.jpg')
+
