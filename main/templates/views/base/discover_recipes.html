@@ -6,36 +6,74 @@
 <link rel="stylesheet" href="{{ url_for('.static', filename='css/recipe_list.css') }}">
 {% endblock %}
 {% block content %}
-<section class="details-card">
+{% set bg =  url_for('.static', filename='img/'~img)  %}
 
-    <div class="container">
-        <div class="row">
-
-        {% for item in data %}
-        <div class="card" style="margin:15px">
-
-            <!-- Card content -->
-            <div class="px-3 ">
-                <div class="card-content">
-                    <div class="card-img">
-                        <img src="http://lorempixel.com/400/200/food/" alt="">
-                        <span><h4>{{item.data.name}}</h4></span>
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+        <div class="col-sm-12 col-md-5 col-lg-5 align-self-center">
+            <div class="text-center">
+                <h1 class="display-1 title">Discover recipes</h1>
+            </div>
+            <div class="md-form">
+                <form class="text-center" action="" method="post" novalidate>
+                    {{ form.hidden_tag() }}
+                    <!-- Name -->
+                    <div class="lg-form">
+                        {{ form.name.label(class='form-control-label') }}
+                        {% if form.name.errors %}
+                        {{ form.name(
+                        class='is-invalid form-control',
+                        required=true
+                        ) }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                            <span>{{error}}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.name(class='form-control',required=true)}}
+                        {% endif %}
                     </div>
-                    <div class="card-desc">
-                        <h3>{{item.data.name}}</h3>
-                        <p>{{item.data.description}}</p>
-                        <p class="card-text">{{item.data.author}}</p>
-                        <a href="#" class="btn-card">Read</a>
-                    </div>
-                </div>
+                    <!-- Search button -->
+                    <button class="btn btn-outline-amber btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Search</button>
+
+
+                </form>
             </div>
 
         </div>
-        <!-- Card -->
-        {% endfor %}
-        </div>
+        <section class="details-card">
+
+            <div class="container">
+                <div class="row">
+
+                    {% for item in data %}
+                    <div class="card" style="margin:10px">
+
+                        <!-- Card content -->
+                        <div class="px-2 ">
+                            <div class="card-content">
+                                <div class="card-img">
+                                    <img src={{item.img_link}} alt="">
+                                    <span><h4>{{item.data.name}}</h4></span>
+                                </div>
+                                <div class="card-desc">
+                                    <h3>{{item.data.name}}</h3>
+                                    <p>{{item.data.description}}</p>
+                                    <p>{{item.author}}</p>
+                                    <a id={{item.id}} href=/addRecipe?id={{item.id}} class="btn-card">Save</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+
     </div>
-</section>
-
-
+</div>
 {% endblock %}
