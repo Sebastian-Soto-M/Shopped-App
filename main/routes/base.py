@@ -92,7 +92,7 @@ def logout():
 
 @r_base.route('/account')
 def account():
-    return render_template('views/base/index.html', title='Account')
+    return render_template('views/base/account.html', title='Account', bg_img='side.jpg', style_sheet=True)
 
 
 @r_base.route('/')
