@@ -51,7 +51,6 @@ def discover_recipes():
         search_recipe_results=[]
         for item in response.json():
             #import pdb; pdb.set_trace()
-
             if form.name.data:
                 print(form.name.data)
                 print(item['data']['name'])
@@ -61,7 +60,7 @@ def discover_recipes():
     if recipes:
 
         for recipe in recipes:
-            author_id=item['author']
+            author_id=recipe['author']
             print(author_id)
             author_response = requests.get(
                         f'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/user/{author_id}')
