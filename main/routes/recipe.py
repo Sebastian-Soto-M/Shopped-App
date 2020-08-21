@@ -42,7 +42,7 @@ def recipe():
         }
         print(data)
         r = requests.post(
-            API_URL+'/api/v1/recipe', json=data)
+            API_URL+'/recipe', json=data)
 
         print(r.status_code)
         return redirect(url_for('.recipe'))
@@ -53,13 +53,12 @@ def recipe():
 def discover_recipes():
     form=RecipeForm()
     response = requests.get(
-             API_URL+'/api/v1/recipe')
+             API_URL+'/recipe')
     recipes=response.json()
 
     if form.is_submitted():
         search_recipe_results=[]
         for item in response.json():
-            #import pdb; pdb.set_trace()
             if form.name.data:
                 print(form.name.data)
                 print(item['data']['name'])
@@ -67,12 +66,13 @@ def discover_recipes():
                     recipes.remove(item)
 
     if recipes:
+        #import pdb; pdb.set_trace()
 
         for recipe in recipes:
             author_id=recipe['author']
             print(author_id)
             author_response = requests.get(
-                        API_URL+'/api/v1/user/'+author_id)
+                        API_URL+'/user/'+author_id)
             number=randrange(10)
             recipe['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
             recipe['author']=author_response.json()['name']
@@ -85,6 +85,6 @@ def add_recipe():
     form= RecipeForm()
     print(request.args.get('id'))
     response = requests.get(
-                            f'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/user/'+current_user.id)
+                            API_URL+'/user/'+current_user.id)
     print(response.json())
     return '/account'
