@@ -23,7 +23,7 @@ class RecoverForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[Email(), DataRequired()])
     password = PasswordField('Password', validators=[
-        DataRequired(), Length(min=4, max=20)])
+        DataRequired(), Length(min=3, max=20)])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
@@ -35,7 +35,8 @@ class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[Email(), DataRequired()])
     password = PasswordField('Password', [
         DataRequired(),
-        EqualTo('confirm_password', message='Passwords must match')
+        EqualTo('confirm_password', message='Passwords must match'),
+        DataRequired(), Length(min=3, max=20)
     ])
     confirm_password = PasswordField('Confirm Password')
     submit = SubmitField('Sign Up')

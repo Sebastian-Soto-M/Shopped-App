@@ -1,8 +1,8 @@
 import json
+from random import randrange
 
 import requests
 from flask import Blueprint, redirect, render_template, request, url_for
-from random import randrange
 
 from ..forms import RecipeForm
 

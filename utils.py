@@ -1,13 +1,14 @@
-import os
-import smtplib
 import json
-import string
+import os
 import secrets
+import smtplib
+import string
 from email.message import EmailMessage
 
-from main import bcrypt
-
+import boto3
 import requests
+
+from main import bcrypt
 
 
 def get_url(url: str) -> dict:
@@ -29,6 +30,17 @@ def new_password() -> str:
     alphabet = string.ascii_letters + string.digits
     passwd = "".join(secrets.choice(alphabet) for i in range(8))
     return (passwd, bcrypt.generate_password_hash(passwd).decode('utf-8'))
+
+
+def sqs_send_message(msg: str):
+    sqs = boto3.client('sqs')
+    queue_url = 'https://us-west-2.queue.amazonaws.com/314637969242/shopped-queue'
+    response = sqs.send_message(
+        QueueUrl=queue_url,
+        DelaySeconds=10,
+        MessageBody=(msg)
+    )
+    return response
 
 
 def send_mail(name, email, subject, msg):

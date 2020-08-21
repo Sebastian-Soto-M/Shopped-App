@@ -8,7 +8,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 import utils
 from main import API_URL, bcrypt
 
-from ..forms import LoginForm, RegisterForm, RecoverForm
+from ..forms import LoginForm, RecoverForm, RegisterForm
 from ..models import User
 
 r_base = Blueprint('r_base', __name__, static_folder='static')
@@ -26,6 +26,7 @@ def recover_password():
             utils.put(API_URL+'/user/', user.to_json())
             utils.send_mail(user.name, user.email, "Recover Password",
                             f"This is your new password {password}")
+            utils.sqs_send_message(user.name+" has a new password")
             flash(
                 f'Password updated, check your email!', 'success')
             return redirect(url_for('.login'))
