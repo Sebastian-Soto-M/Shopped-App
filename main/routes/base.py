@@ -21,13 +21,13 @@ def recover_password():
         if form.validate_on_submit():
             password, encrypted = utils.new_password()
             usr_id = utils.get_url(API_URL+'/user/gsi/'+form.email.data)['id']
-            import pdb
-            pdb.set_trace()
             user = User.to_object(utils.get_url(API_URL+'/user/' + usr_id))
             user.password = encrypted
             utils.put(API_URL+'/user/', user.to_json())
+            utils.send_mail(user.name, user.email, "Recover Password",
+                            f"This is your new password {password}")
             flash(
-                f'Password updated, check your email! ({password})', 'success')
+                f'Password updated, check your email!', 'success')
             return redirect(url_for('.login'))
 
     return render_template('views/base/recover_password.html', title='Recover Password',
