@@ -80,19 +80,13 @@ def register():
         return redirect(url_for('r_base.login'))
 
     return render_template('views/base/register.html',
-                           title='Register', form=form, style_sheet=True,
-                           bg_img='bgimg.jpg')
+                           title='Register', form=form, bg_img='bgimg.jpg')
 
 
 @r_base.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('.home'))
-
-
-@r_base.route('/account')
-def account():
-    return render_template('views/base/index.html', title='Account')
 
 
 @r_base.route('/')
