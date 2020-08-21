@@ -1,0 +1,18 @@
+{% extends 'views/layout/default/basic.html' %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/full_page_form.min.css') }}">
+{% endblock %}
+
+{% set bg =  url_for('static', filename='img/'~bg_img)  %}
+
+{% block content %}
+    <div class="container-fluid h-100 py-3" style="background-image: url('{{bg}}'); background-position: top 35% left 25%;">
+        <nav class="nav nav-pills flex-column z-depth-2  flex-sm-row bg-white p-3 rounded">
+            {% block navitems %}
+            {% endblock navitems %}
+        </nav>
+        {% include "components/alert.html" %}
+        {% block container %}
+        {% endblock container %}
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'views/base/account/layout.html' %}
+
+{% block navitems %}
+    <a class="orange-text flex-sm-fill text-sm-center nav-link" href="{{ url_for('.info') }}"><i class="fas fa-book mr-3"></i>Information</a>
+    <a class="orange-text flex-sm-fill text-sm-center nav-link" href="{{ url_for('.recipes') }}"><i class="fas fa-shopping-cart mr-3"></i>Recipes</a>
+    <a class="flex-sm-fill text-sm-center nav-link active pink" href="{{ url_for('.cart') }}"><i class="fas fa-info mr-3"></i>Cart</a>
+{% endblock navitems %}
+{% block container %}
+    this is the cart
+{% endblock container %}
