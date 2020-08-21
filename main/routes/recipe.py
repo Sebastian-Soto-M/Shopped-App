@@ -5,6 +5,11 @@ import requests
 from flask import Blueprint, redirect, render_template, request, url_for
 
 from ..forms import RecipeForm
+from flask_login import current_user
+
+import utils
+from main import API_URL
+
 
 r_recipe = Blueprint('r_recipe', __name__,
                      static_folder='static')
@@ -37,7 +42,7 @@ def recipe():
         }
         print(data)
         r = requests.post(
-            'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe', json=data)
+            API_URL+'/api/v1/recipe', json=data)
 
         print(r.status_code)
         return redirect(url_for('.recipe'))
@@ -48,7 +53,7 @@ def recipe():
 def discover_recipes():
     form=RecipeForm()
     response = requests.get(
-            'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/recipe')
+             API_URL+'/api/v1/recipe')
     recipes=response.json()
 
     if form.is_submitted():
@@ -67,7 +72,7 @@ def discover_recipes():
             author_id=recipe['author']
             print(author_id)
             author_response = requests.get(
-                        f'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/user/{author_id}')
+                        API_URL+'/api/v1/user/'+author_id)
             number=randrange(10)
             recipe['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
             recipe['author']=author_response.json()['name']
@@ -79,4 +84,7 @@ def discover_recipes():
 def add_recipe():
     form= RecipeForm()
     print(request.args.get('id'))
-    return render_template('views/base/recipe.html', title='Recipes', form=form, img='recipe.jpg')
+    response = requests.get(
+                            f'http://ec2-54-184-147-64.us-west-2.compute.amazonaws.com:8080/shopped-api/api/v1/user/'+current_user.id)
+    print(response.json())
+    return '/account'
