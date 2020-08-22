@@ -20,18 +20,19 @@ r_account = Blueprint('r_account', __name__, static_folder='static')
 def info():
     recipes = []
     response = requests.get(
-        API_URL+'/recipe/')
-    recipes = response.json()
-    for recipe in recipes:
-        if recipe['id'] not in current_user.shopping_lists:
-            recipes.remove(recipe)
 
-    if recipes:
+                             API_URL+'/recipe/')
+    recipes=response.json()
+    saved_recipes=[]
+    if current_user.shopping_lists:
         for recipe in recipes:
-            number = randrange(10)
-            recipe['img_link'] = "http://lorempixel.com/400/200/food/" + \
-                str(number)
-            formatted_items = ['-- Ingredients --']
+            if recipe['id'] in current_user.shopping_lists:
+                saved_recipes.append(recipe)
+
+        for recipe in saved_recipes:
+            number=randrange(10)
+            recipe['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
+            formatted_items=['-- Ingredients --']
             for key in recipe['items']:
                 formatted_items.append("- "+key+", "+recipe['items'][key])
             recipe['items'] = formatted_items
@@ -44,7 +45,7 @@ def info():
 
             recipe['author'] = author_response.json()['name']
 
-    return render_template('views/base/account/account_info.html', data=recipes, title='Cart', bg_img='side.jpg')
+    return render_template('views/base/account/account_info.html', data=saved_recipes, title='Cart', bg_img='side.jpg')
 
 
 @r_account.route('/account/cart')
@@ -74,3 +75,4 @@ def recipes():
             recipe['author'] = current_user.name
 
     return render_template('views/base/account/account_recipes.html', data=recipes, title='Cart', bg_img='side.jpg')
+
