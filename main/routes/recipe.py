@@ -32,7 +32,7 @@ def recipe():
         instructions_json = dict(enumerate(instructions))
         data = {
             "status": "ACTIVE",
-            "author": "01236446",
+            "author": current_user.id,
             f"items": items_json,
             f'steps': instructions_json,
             "data":
@@ -83,8 +83,22 @@ def discover_recipes():
 @ r_recipe.route('/add_recipe', methods=[ 'POST', 'GET'])
 def add_recipe():
     form= RecipeForm()
-    print(request.args.get('id'))
-    response = requests.get(
-                            API_URL+'/user/'+current_user.id)
-    print(response.json())
-    return '/account'
+    recipe_id=request.args.get('id')
+
+    if recipe_id not in current_user.shopping_lists:
+        response = requests.get(API_URL+'/recipe/'+recipe_id+"/"+current_user.id)
+        if response.json()['data']:
+            return redirect(url_for('r_account.recipes'))
+        current_user.shopping_lists.append(recipe_id)
+        data = {
+                    "id": current_user.id,
+                    "name": current_user.name,
+                    "email": current_user.email,
+                    'password': current_user.password,
+                    'shopping_lists': current_user.shopping_lists,
+                    'status': current_user.status
+                }
+        print(data)
+        r = requests.put(
+            API_URL+'/user', json=data)
+    return redirect(url_for('r_account.info'))

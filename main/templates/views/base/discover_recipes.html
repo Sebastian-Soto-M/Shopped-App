@@ -60,8 +60,11 @@
                                 <div class="card-desc">
                                     <h3>{{item.data.name}}</h3>
                                     <p>{{item.data.description}}</p>
-                                    <p>{{item.author}}</p>
-                                    <a id={{item.id}} href=/add_recipe?id={{item.id}} class="btn-card">Save</a>
+                                    <p>By: {{item.author}}</p>
+                                    {% if current_user.is_authenticated %}
+                                         <a id={{item.id}} href=/add_recipe?id={{item.id}} class="btn-card">Save</a>
+
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
