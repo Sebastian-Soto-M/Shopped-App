@@ -54,3 +54,9 @@ class RecipeForm(FlaskForm):
     instructions = TextAreaField('Instructions', validators=[DataRequired()])
     ingredients = FieldList(TextField())
     submit = SubmitField('Save')
+
+
+class ItemForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    amount = StringField('Amount', validators=[DataRequired()])
+    submit = SubmitField('Add Item')

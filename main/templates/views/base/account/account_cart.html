@@ -1,10 +1,65 @@
 {% extends 'views/base/account/layout.html' %}
 
 {% block navitems %}
-    <a class="orange-text flex-sm-fill text-sm-center nav-link" href="{{ url_for('.info') }}"><i class="fas fa-book mr-3"></i>Information</a>
-    <a class="orange-text flex-sm-fill text-sm-center nav-link" href="{{ url_for('.recipes') }}"><i class="fas fa-shopping-cart mr-3"></i>Recipes</a>
-    <a class="flex-sm-fill text-sm-center nav-link active pink" href="{{ url_for('.cart') }}"><i class="fas fa-info mr-3"></i>Cart</a>
+    <a class="orange-text flex-sm-fill text-sm-center nav-link" href="{{ url_for('r_account.info') }}"><i class="fas fa-book mr-3"></i>Information</a>
+    <a class="orange-text flex-sm-fill text-sm-center nav-link" href="{{ url_for('r_account.recipes') }}"><i class="fas fa-shopping-cart mr-3"></i>Recipes</a>
+    <a class="flex-sm-fill text-sm-center nav-link active pink" href="{{ url_for('r_account.cart') }}"><i class="fas fa-info mr-3"></i>Cart</a>
 {% endblock navitems %}
 {% block container %}
-    this is the cart
+    <div class="mt-3">
+        <div class="col-md py-2 z-depth-1 bg-white rounded">
+            <form class="text-center" action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="form-row">
+                    <div class="col-auto">
+                        <a class="btn btn-outline-pink btn-rounded btn-block w-100 waves-effect z-depth-0" href="{{url_for('r_cart.replace')}}">New Cart!</a>
+                    </div>
+                    <div class="col">
+                        <div class="md-form mt-0">
+                            {{ form.name.label(class='form-control-label') }}
+                            {% if form.name.errors %}
+                                {{ form.name(
+                                class='is-invalid form-control',
+                                required=false
+                                ) }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.name.errors %}
+                                        <span>{{error}}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.name(class='form-control',required=false)}}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form mt-0">
+                            {{ form.amount.label(class='form-control-label') }}
+                            {% if form.amount.errors %}
+                                {{ form.amount(
+                                class='is-invalid form-control',
+                                required=false
+                                ) }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.amount.errors %}
+                                        <span>{{error}}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.amount(class='form-control',required=false)}}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        {{ form.submit(class="btn btn-outline-amber btn-rounded btn-block w-100 waves-effect z-depth-0")}}
+                    </div>
+                </div>
+            </form>
+            <ul class="list-group">
+                {% for item in cart %}
+                    <li class="list-group-item">{{item + ', ' + cart[item]}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock container %}

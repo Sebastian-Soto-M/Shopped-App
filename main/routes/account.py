@@ -18,58 +18,59 @@ r_account = Blueprint('r_account', __name__, static_folder='static')
 
 @r_account.route('/account/info')
 def info():
-    recipes=[]
+    recipes = []
     response = requests.get(
-                             API_URL+'/recipe/')
-    recipes=response.json()
+        API_URL+'/recipe/')
+    recipes = response.json()
     for recipe in recipes:
         if recipe['id'] not in current_user.shopping_lists:
             recipes.remove(recipe)
 
     if recipes:
         for recipe in recipes:
-            number=randrange(10)
-            recipe['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
-            formatted_items=['-- Ingredients --']
+            number = randrange(10)
+            recipe['img_link'] = "http://lorempixel.com/400/200/food/" + \
+                str(number)
+            formatted_items = ['-- Ingredients --']
             for key in recipe['items']:
                 formatted_items.append("- "+key+", "+recipe['items'][key])
-            recipe['items']=formatted_items
-            formatted_steps=['-- Instructions --']
+            recipe['items'] = formatted_items
+            formatted_steps = ['-- Instructions --']
             for key in recipe['steps']:
                 formatted_steps.append("- "+recipe['steps'][key])
-            recipe['steps']=formatted_steps
+            recipe['steps'] = formatted_steps
             author_response = requests.get(
-                                    API_URL+'/user/'+recipe['author'])
+                API_URL+'/user/'+recipe['author'])
 
-            recipe['author']=author_response.json()['name']
+            recipe['author'] = author_response.json()['name']
 
     return render_template('views/base/account/account_info.html', data=recipes, title='Cart', bg_img='side.jpg')
 
 
 @r_account.route('/account/cart')
 def cart():
-    return render_template('views/base/account/account_cart.html', title='Cart', bg_img='side.jpg')
+    return redirect(url_for('r_cart.get_active'))
 
 
 @r_account.route('/account/recipes')
 def recipes():
     response = requests.get(
-             API_URL+'/recipe/'+current_user.id)
-    recipes=response.json()
+        API_URL+'/recipe/'+current_user.id)
+    recipes = response.json()
     if recipes:
 
-            for recipe in recipes:
-                number=randrange(10)
-                recipe['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
-                formatted_items=['-- Ingredients --']
-                for key in recipe['items']:
-                    formatted_items.append("- "+key+", "+recipe['items'][key])
-                recipe['items']=formatted_items
-                formatted_steps=['-- Instructions -- ']
-                for key in recipe['steps']:
-                    formatted_steps.append("- "+recipe['steps'][key])
-                recipe['steps']=formatted_steps
-                recipe['author']=current_user.name
-
+        for recipe in recipes:
+            number = randrange(10)
+            recipe['img_link'] = "http://lorempixel.com/400/200/food/" + \
+                str(number)
+            formatted_items = ['-- Ingredients --']
+            for key in recipe['items']:
+                formatted_items.append("- "+key+", "+recipe['items'][key])
+            recipe['items'] = formatted_items
+            formatted_steps = ['-- Instructions -- ']
+            for key in recipe['steps']:
+                formatted_steps.append("- "+recipe['steps'][key])
+            recipe['steps'] = formatted_steps
+            recipe['author'] = current_user.name
 
     return render_template('views/base/account/account_recipes.html', data=recipes, title='Cart', bg_img='side.jpg')
