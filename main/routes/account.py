@@ -22,12 +22,15 @@ def info():
     response = requests.get(
                              API_URL+'/recipe/')
     recipes=response.json()
-    for recipe in recipes:
-        if recipe['id'] not in current_user.shopping_lists:
-            recipes.remove(recipe)
+    import pdb;
+    saved_recipes=[]
 
-    if recipes:
+    if current_user.shopping_lists:
         for recipe in recipes:
+            if recipe['id'] in current_user.shopping_lists:
+                saved_recipes.append(recipe)
+
+        for recipe in saved_recipes:
             number=randrange(10)
             recipe['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
             formatted_items=['-- Ingredients --']
@@ -43,7 +46,7 @@ def info():
 
             recipe['author']=author_response.json()['name']
 
-    return render_template('views/base/account/account_info.html', data=recipes, title='Cart', bg_img='side.jpg')
+    return render_template('views/base/account/account_info.html', data=saved_recipes, title='Cart', bg_img='side.jpg')
 
 
 @r_account.route('/account/cart')
