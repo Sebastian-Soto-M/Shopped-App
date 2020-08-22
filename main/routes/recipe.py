@@ -87,7 +87,7 @@ def add_recipe():
 
     if recipe_id not in current_user.shopping_lists:
         response = requests.get(API_URL+'/recipe/'+recipe_id+"/"+current_user.id)
-        if response.json()['data']:
+        if response.text is not '':
             return redirect(url_for('r_account.recipes'))
         current_user.shopping_lists.append(recipe_id)
         data = {

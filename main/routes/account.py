@@ -25,16 +25,23 @@ def info():
     for recipe in recipes:
         if recipe['id'] not in current_user.shopping_lists:
             recipes.remove(recipe)
-        #import pdb; pdb.set_trace()
-        #response = requests.get(API_URL+'/recipe/'+recipe+"/"+current_user.id)
-        #recipe= response.json()
-        #recipes.append(recipe)
-
 
     if recipes:
         for recipe in recipes:
             number=randrange(10)
             recipe['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
+            formatted_items=['-- Ingredients --']
+            for key in recipe['items']:
+                formatted_items.append("- "+key+", "+recipe['items'][key])
+            recipe['items']=formatted_items
+            formatted_steps=['-- Instructions --']
+            for key in recipe['steps']:
+                formatted_steps.append("- "+recipe['steps'][key])
+            recipe['steps']=formatted_steps
+            author_response = requests.get(
+                                    API_URL+'/user/'+recipe['author'])
+
+            recipe['author']=author_response.json()['name']
 
     return render_template('views/base/account/account_info.html', data=recipes, title='Cart', bg_img='side.jpg')
 
@@ -54,5 +61,15 @@ def recipes():
             for recipe in recipes:
                 number=randrange(10)
                 recipe['img_link']= "http://lorempixel.com/400/200/food/"+str(number)
+                formatted_items=['-- Ingredients --']
+                for key in recipe['items']:
+                    formatted_items.append("- "+key+", "+recipe['items'][key])
+                recipe['items']=formatted_items
+                formatted_steps=['-- Instructions -- ']
+                for key in recipe['steps']:
+                    formatted_steps.append("- "+recipe['steps'][key])
+                recipe['steps']=formatted_steps
+                recipe['author']=current_user.name
+
 
     return render_template('views/base/account/account_recipes.html', data=recipes, title='Cart', bg_img='side.jpg')
