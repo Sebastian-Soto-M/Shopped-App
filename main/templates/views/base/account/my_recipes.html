@@ -10,7 +10,7 @@
                 <div class="container">
                     <div class="row">
 
-                        {% for item in data %}
+                        {%- for item in data recursive%}
                         <div class="card" style="margin:10px">
 
                             <!-- Card content -->
@@ -21,10 +21,14 @@
                                         <span><h4>{{item.data.name}}</h4></span>
                                     </div>
                                     <div class="card-desc">
-                                        <h3>{{item.data.name}}</h3>
-                                        <p>{{item.data.description}}</p>
-                                        <p>{{item.items}}</p>
-                                        <p>{{item.steps}}</p>
+                                        {%- for ingre in item['items'] recursive%}
+                                        <p>{{ ingre }}</p>
+                                        {% endfor %}
+                                        {%- for step in item['steps'] recursive%}
+                                        <p >{{ step }}</p>
+                                        {% endfor %}
+                                        <p>By: {{item.author}}</p>
+
                                     </div>
                                 </div>
                             </div>
