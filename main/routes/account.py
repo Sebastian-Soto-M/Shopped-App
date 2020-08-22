@@ -18,8 +18,9 @@ r_account = Blueprint('r_account', __name__, static_folder='static')
 
 @r_account.route('/account/info')
 def info():
-    recipes=[]
+    recipes = []
     response = requests.get(
+
                              API_URL+'/recipe/')
     recipes=response.json()
     saved_recipes=[]
@@ -34,15 +35,15 @@ def info():
             formatted_items=['-- Ingredients --']
             for key in recipe['items']:
                 formatted_items.append("- "+key+", "+recipe['items'][key])
-            recipe['items']=formatted_items
-            formatted_steps=['-- Instructions --']
+            recipe['items'] = formatted_items
+            formatted_steps = ['-- Instructions --']
             for key in recipe['steps']:
                 formatted_steps.append("- "+recipe['steps'][key])
-            recipe['steps']=formatted_steps
+            recipe['steps'] = formatted_steps
             author_response = requests.get(
-                                    API_URL+'/user/'+recipe['author'])
+                API_URL+'/user/'+recipe['author'])
 
-            recipe['author']=author_response.json()['name']
+            recipe['author'] = author_response.json()['name']
 
     return render_template('views/base/account/account_info.html', data=saved_recipes, title='Cart', bg_img='side.jpg')
 
@@ -74,3 +75,4 @@ def recipes():
             recipe['author'] = current_user.name
 
     return render_template('views/base/account/account_recipes.html', data=recipes, title='Cart', bg_img='side.jpg')
+

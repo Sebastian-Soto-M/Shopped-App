@@ -48,3 +48,21 @@ class User(UserMixin, ResponseObject):
             "status": self.status,
             "shopping_lists": self.shopping_lists,
         }
+
+
+class Cart(ResponseObject):
+    def __init__(self, author: str, items: dict):
+        self.author = author
+        self.items = items
+
+    def to_object(obj: dict):
+        return Cart(
+            author=obj['author'],
+            items=obj['items'],
+        )
+
+    def to_json(self):
+        return {
+            "author": self.author,
+            "items": self.items
+        }

@@ -1,13 +1,23 @@
 {% extends 'views/layout/default/basic.html' %}
-<section>
-    <div class="col">
-        <li><span>hello</span></li>
-        <li><span>hello</span></li>
-        <li><span>hello</span></li>
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/full_page_form.min.css') }}">
+{% endblock %}
+
+{% set bg =  url_for('.static', filename='img/discover.jpeg')  %}
+
+{% block content %}
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+            <div class="text-center col-sm-12 col-md-5 col-lg-5 align-self-center">
+                <h1 class="display-1 title">Welcome to Shopped</h1>
+                <h3>Your trusty recipe book online</h3>
+            </div>
+
+            {% block form %}{% endblock %}
+        <div class="col-sm d-none d-md-block bg-fp" style="background-image: url('{{bg}}')"></div>
+
     </div>
-    <div class="col">
-        <li><span>hello</span></li>
-        <li><span>hello</span></li>
-        <li><span>hello</span></li>
-    </div>
-</section>
+</div>
+{% endblock %}
+
